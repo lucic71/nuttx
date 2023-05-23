@@ -156,9 +156,9 @@ _xtensa_alloca_handler:
 	wsr		a2, PS			/* Update PS.OWB to new window base */
 	rsync
 
-	_bbci.l	a4, 31, _window_underflow4
+	bbci.l	a4, 31, _window_underflow4
 	rotw	-1				/* Original a0 goes to a8 */
-	_bbci.l	a8, 30, _window_underflow8
+	bbci.l	a8, 30, _window_underflow8
 	rotw	-1
 	j		_window_underflow12
 

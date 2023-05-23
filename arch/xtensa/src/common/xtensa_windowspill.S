@@ -150,7 +150,7 @@ _xtensa_window_spill:
 	sll		a3, a3            /* a3 is 1yyyyy0000000000 | 0... = WINDOWSTART << (32 - sar) */
 	bgez	a3, .Linvalid_ws	/* verify that msbit is indeed set */
 
-	srli	a3, a3, 32-WSBITS	/* a3 is 0... | 1yyyyy0000000000 = a3 >> (32-NAREG/4) */
+	srli	a3, a3, 32-WSBITS-1	/* a3 is 0... | 1yyyyy0000000000 = a3 >> (32-NAREG/4) */
 	or		a2, a2, a3				/* a2 is 0... | 1yyyyyxxxxxxxxxx */
 
 	/* FIND THE FIRST ONE
