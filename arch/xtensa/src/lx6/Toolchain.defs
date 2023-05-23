@@ -128,6 +128,8 @@ ifeq ($(CONFIG_XTENSA_TOOLCHAIN_XCC), y)
   CXX = $(CROSSDEV)xc++
   CPP = $(CROSSDEV)xcc -E -P -x c
 else ifeq ($(CONFIG_XTENSA_TOOLCHAIN_XCLANG), y)
+  ARCHCFLAGS += -target xtensa
+  ARCHCXXFLAGS += -target xtensa
   CC = $(CROSSDEV)clang
   CXX = $(CROSSDEV)clang++
   CPP = $(CROSSDEV)clang -E -P -x c
@@ -137,7 +139,7 @@ else
   CPP = $(CROSSDEV)gcc -E -P -x c
 endif
 
-LD = $(CROSSDEV)ld
+LD = /git/nuttxspace/xtensa-esp32-elf/bin/xtensa-esp32-elf-ld
 STRIP = $(CROSSDEV)strip --strip-unneeded
 AR = $(CROSSDEV)ar rcs
 NM = $(CROSSDEV)nm
@@ -146,10 +148,10 @@ OBJDUMP = $(CROSSDEV)objdump
 
 # Add the builtin library
 
-EXTRA_LIBS += $(wildcard $(shell $(CC) $(ARCHCPUFLAGS) --print-libgcc-file-name))
+EXTRA_LIBS += /git/nuttxspace/xtensa-esp32-elf/lib/gcc/xtensa-esp32-elf/8.2.0/libgcc.a
 
 ifeq ($(CONFIG_LIBM_TOOLCHAIN),y)
-  EXTRA_LIBS += $(wildcard $(shell $(CC) $(ARCHCPUFLAGS) --print-file-name=libm.a))
+  EXTRA_LIBS += /git/nuttxspace/xtensa-esp32-elf/xtensa-esp32-elf/lib/libm.a
 endif
 
 ifeq ($(CONFIG_LIBSUPCXX),y)
